@@ -1,13 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import Routes from './shared/routes.js';
+import store from './shared/store.js';
+import './assets/app.css';
+import './assets/cards.css';
+import 'bootstrap/dist/css/bootstrap-theme.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+  <BrowserRouter>
+    <Routes />
+    </BrowserRouter>
+    </Provider>,
   document.getElementById('root')
 );
 

@@ -1,0 +1,43 @@
+import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import {menu} from '../../shared/api.js';
+import Cart from '../Cart/cart';
+import * as filterActions from '../Filters/action';
+import FilterMenu from "../Filters/FilterMenu";
+import MenuItemList from '../Menu/menuItemList';
+import * as actions from './action.js';
+
+class Dashboard extends Component {
+    componentDidMount() {
+        
+        this.props.loadFoodItems(menu)
+        this.props.filterMenu(menu);
+    }
+
+    render() {
+        return (
+            <Fragment>
+                <div className="col col-md-12 col-xs-12 filter-container">
+                    <FilterMenu />
+                </div>
+                <div className="col col-md-9 col-xs-8 menu-container">
+                    <MenuItemList />
+                </div>
+                <div className="col col-md-3 col-xs-4 summary-container">
+                    <Cart />
+                </div>
+            </Fragment>
+        );
+    }
+}
+
+//  Set the actions which will prompt the reducers to check for matching types
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        loadFoodItems: actions.loadFoodItems,
+        filterMenu: filterActions.filterMenu
+    }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(Dashboard);
